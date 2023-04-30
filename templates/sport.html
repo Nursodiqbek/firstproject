@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Yangiliklar24</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+  .fakeimg {
+    height: 200px;
+    background: #aaa;
+  }
+  </style>
+</head>
+<body>
+
+<div class="p-5 bg-primary text-white text-center">
+  <h1>DUNYO XABARLARI!</h1>
+  <p>Birinchi bizda keyin boshqalarda. </p>
+</div>
+
+{% if request.user.is_authenticated %}
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <div class="container-fluid">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link active" href="{% url 'index' %}">Bosh sahifa</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="{% url 'world' %}">Dunyo yangiliklari</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="{% url 'local' %}">Mahalliy yangiliklar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="{% url 'sport' %}">Sport yangiliklari</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Xush kelibsiz {{ request.user.first_name }} </a>
+      </li>
+         <li class="nav-item">
+        <a class="nav-link active" href="{% url 'logout' %}">Log Out</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+{% else %}
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <div class="container-fluid">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link active" href="{% url 'index' %}">Bosh sahifa</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="{% url 'world' %}">Dunyo yangiliklari</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="{% url 'local' %}">Mahalliy yangiliklar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="{% url 'sport' %}">Sport yangiliklari</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="{% url 'login' %}">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="{% url 'register' %}">Register</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+{% endif %}<div class="container mt-5">
+  <div class="row">
+    {% for new in s_news %}
+    <div class="col-sm-8">
+      <h2><a href="{% url 'article'  new.id %}">{{ new.title }} </a></h2>
+      <h5>{{ new.created_at }}</h5>
+      <img src="{{ new.image.url }}" width="800px" height="600px">
+
+      </div>
+    {% endfor %}
+  </div>
+</div>
+<div class="mt-5 p-4 bg-dark text-white text-center">
+  <p>Footer</p>
+</div>
+
+</body>
+</html>
